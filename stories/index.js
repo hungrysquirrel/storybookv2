@@ -50,6 +50,8 @@ stories.add('Icons', () => {
   )
 })
 
+// Display story & knobs with method seen here
+// https://github.com/storybooks/storybook/tree/master/addons/knobs#getting-started
 stories.add('Button (basic)', () => {
   // Storybook Knobs
   const size= select("Size", ["small", "medium", "large"], "medium")
@@ -59,6 +61,17 @@ stories.add('Button (basic)', () => {
     <Button btnText={text('Label', 'Button')} className={`${intent} ${size} ${boolean('Active', false)}`} disabled={boolean('Disabled', false)} />
   )
 })
+
+// storiesOf approach to displaying a story with knobs
+storiesOf('Button', module)
+  .addDecorator(withKnobs)
+  .add('with knobs', () => {
+    const size= select("Size", ["small", "medium", "large"], "medium")
+    const intent= select("Intent", ["default", "primary", "danger"], "primary")
+    return (  
+      <Button btnText={text('Label', 'Button')} className={`${intent} ${size} ${boolean('Active', false)}`} disabled={boolean('Disabled', false)} />
+    )
+  })
 
 stories.add('Button with left icon', () => {
   // Storybook Knobs
